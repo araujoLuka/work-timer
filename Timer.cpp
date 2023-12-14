@@ -32,17 +32,17 @@ std::string Timer::toString() const {
 void Timer::display() const {
     std::string displayMessage{
         "==============================\n"
-        " - Tempo Inicial: 00:00:00\n"
-        " - Tempo Decorrido: " +
+        " - Initial Time: 00:00:00\n"
+        " - Elapsed Time: " +
         toString() + '\n' +
         "==============================\n"
-        "\n Pressione Ctrl+C para sair"
-        "\n Pressione Ctrl+Z para pausar\n\n"};
+        "\n Press Ctrl+C to exit"
+        "\n Press Ctrl+Z to pause\n\n"};
 
-    // Calcula a quantidade de linhas da mensagem
+    // Calculate the number of lines in the message
     int messageLines = std::count(displayMessage.begin(), displayMessage.end(), '\n');
 
-    // Retorna para o início da linha usando \033[F
+    // Return to the beginning of the line using \033[F
     std::string returnToStart = "\033[" + std::to_string(messageLines) + "F";
 
     if (firstDisplay) {
