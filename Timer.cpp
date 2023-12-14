@@ -5,9 +5,7 @@
 
 namespace wl {
 
-static bool firstDisplay{true};
-
-Timer::Timer() : hours{0}, minutes{0}, seconds{0} {}
+Timer::Timer() : firstDisplay{true}, hours{0}, minutes{0}, seconds{0} {}
 
 int8_t Timer::getHours() const { return this->hours; }
 int8_t Timer::getMinutes() const { return this->minutes; }
@@ -29,10 +27,11 @@ std::string Timer::toString() const {
     return result;
 }
 
-void Timer::display() const {
+void Timer::display() {
     std::string displayMessage{
         "==============================\n"
-        " - Initial Time: 00:00:00\n"
+        "   WorkTimer - Counter\n"
+        "==============================\n"
         " - Elapsed Time: " +
         toString() + '\n' +
         "==============================\n"
@@ -45,11 +44,10 @@ void Timer::display() const {
     // Return to the beginning of the line using \033[F
     std::string returnToStart = "\033[" + std::to_string(messageLines) + "F";
 
-    if (firstDisplay) {
-        std::cout << displayMessage;
-        firstDisplay = false;
-    } else
-        std::cout << returnToStart << displayMessage;
+    if (!this->firstDisplay) std::cout << returnToStart;
+
+    std::cout << displayMessage;
+    firstDisplay = false;
 }
 
 void Timer::tick() {

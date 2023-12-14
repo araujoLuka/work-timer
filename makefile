@@ -1,5 +1,5 @@
 CC = g++
-CPPFLAGS = -Wall -pthread
+CPPFLAGS = -Wall
 
 nomePrograma = workTimer
 objetos = main.o Timer.o

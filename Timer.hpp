@@ -16,13 +16,15 @@ class Timer {
     int8_t getSeconds() const;
 
     std::string toString() const;
-    void display() const;
+    void display();
     void tick();
 
     Timer &operator++();
 
     Timer &operator+(Timer const &rhs);
     Timer &operator-(Timer const &rhs);
+
+    bool firstDisplay;
 
    private:
     int16_t hours;
