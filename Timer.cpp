@@ -1,8 +1,11 @@
 #include "Timer.hpp"
 
+#include <algorithm>
 #include <iostream>
 
 namespace wl {
+
+static bool firstDisplay{true};
 
 Timer::Timer() : hours{0}, minutes{0}, seconds{0} {}
 
@@ -26,14 +29,37 @@ std::string Timer::toString() const {
     return result;
 }
 
-void Timer::display() const { std::cout << '\r' << toString() << std::flush; }
+void Timer::display() const {
+    std::string displayMessage{
+        "==============================\n"
+        " - Tempo Inicial: 00:00:00\n"
+        " - Tempo Decorrido: " +
+        toString() + '\n' +
+        "==============================\n"
+        "\n Pressione Ctrl+C para sair"
+        "\n Pressione Ctrl+Z para pausar\n\n"};
+
+    // Calcula a quantidade de linhas da mensagem
+    int messageLines = std::count(displayMessage.begin(), displayMessage.end(), '\n');
+
+    // Retorna para o início da linha usando \033[F
+    std::string returnToStart = "\033[" + std::to_string(messageLines) + "F";
+
+    if (firstDisplay) {
+        std::cout << displayMessage;
+        firstDisplay = false;
+    } else
+        std::cout << returnToStart << displayMessage;
+}
 
 void Timer::tick() {
     this->seconds++;
+
     if (this->seconds == 60) {
         this->seconds = 0;
         this->minutes++;
     }
+
     if (this->minutes == 60) {
         this->minutes = 0;
         this->hours++;
