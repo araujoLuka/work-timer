@@ -28,6 +28,9 @@ std::string getCurrentTime() {
 void sigintHandler(int sig_num) {
     std::cout << "\nCtrl-C received. Exiting...\n";
     isRunning = false;
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::signal(SIGINT, SIG_DFL);
 }
 
 void sigcontHandler(int sig_num);
