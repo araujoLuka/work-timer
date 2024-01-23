@@ -97,7 +97,7 @@ int main() {
     std::thread timerThread(timerLoop, t);
     timerThread.join();
 
-    std::cout << "Timer stopped.\n";
+    std::cout << "Timer stopped at: " << getCurrentTime() << "\n";
     std::cout << std::endl;
 
     delete t;
